@@ -30,18 +30,13 @@ public class JCA {
    private double weeklyVehicleHours;
    private double weeklyFdtTotal;
    
-   public JCA (String jobNoStr, String jcaFolder, String week) 
-      throws JCANotFoundException {
+   public JCA (String jobNoStr, String jcaFolder, String week) {
       this.jobNoStr = jobNoStr;
       this.jcaFolder = jcaFolder;
       this.week = week;
       jobs = new ArrayList<Job>();
       failedJobs = new ArrayList<Job>();
       findFile();
-      
-      if (jcaFile == null) {
-         throw new JCANotFoundException("Could not find JCA for job", jobNoStr);
-      }
    }
    
    public void loadWorkbook() throws JCANotFoundException {
@@ -51,11 +46,12 @@ public class JCA {
       else {
          try {
             Workbook originalWorkbook = Workbook.getWorkbook(jcaFile);
-            jcaWorkbook = Workbook.createWorkbook(new File(jcaFolder+"/"+jobNoStr+".xls"), originalWorkbook);
+            jcaWorkbook = Workbook.createWorkbook(new File(jcaFolder+"/"+jobNoStr+"_new.xls"), originalWorkbook);
             //originalWorkbook.close();
             sheet = jcaWorkbook.getSheet(0);
          }
          catch (Exception ex) {
+            output("Failed to load Workbook! " + ex);
             System.out.println("Failed to load Workbook!!!!!!!!!!!! " + ex);
          }
       }
@@ -161,7 +157,7 @@ public class JCA {
                failedJobs.add(job);
             else {
                try {
-                  System.out.println("Putting " + job + " at row " + jobRow + " in " + this);
+                  output("   Putting " + job + " at row " + jobRow + " in " + this);
                   format = sheet.getCell(CurrentWeekColumn, jobRow).getCellFormat();
                   hours = new jxl.write.Number(CurrentWeekColumn, jobRow, job.hours, format);
                   sheet.addCell(hours);
@@ -266,6 +262,10 @@ public class JCA {
       catch (Exception ex) {
          System.out.println("Could not close " + this);
       }
+   }
+   
+   private void output(String msg) {
+      JCABuilder.output(msg);
    }
 
 }

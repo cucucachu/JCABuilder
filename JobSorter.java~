@@ -15,8 +15,8 @@ public class JobSorter {
          System.out.println("Sorting " + job);
          sorted = false;
          for (JCA jca : jcas) {
-            System.out.println("JCA found");
             if (jca.getJobNoStr().compareTo(job.jobNoStr) == 0) {
+               System.out.println("JCA found for " + job);
                jca.addJob(job);
                sorted = true;
             }
@@ -29,6 +29,7 @@ public class JobSorter {
                jcas.add(newJCA);
             }
             catch (JCANotFoundException ex) {
+               JCABuilder.output(ex.getMessage());
                System.out.println(ex.getMessage());
             }
          }

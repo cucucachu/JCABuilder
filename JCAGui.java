@@ -7,7 +7,8 @@ import javax.swing.filechooser.*;
 public class JCAGui extends JFrame implements ActionListener {
    private static final String newline = System.lineSeparator();
    private static final String DefaultDirectory = "/Home";
-   private static final String welcomeText = "Welcome" + newline; 
+   private static final String welcomeText = "Welcome" + newline;
+   private boolean running; 
 
    private JPanel mainPanel;
    
@@ -42,6 +43,7 @@ public class JCAGui extends JFrame implements ActionListener {
       this.setDefaultCloseOperation(EXIT_ON_CLOSE);
       this.setSize(700, 500);
       this.setResizable(false);
+      running = false;
       
       mainPanel = new JPanel();
       
@@ -104,9 +106,7 @@ public class JCAGui extends JFrame implements ActionListener {
       String source = e.getActionCommand();
       if (source.compareTo("Start") == 0) {
          try {
-            JCABuilder.buildJCA(jcaChooser.getSelectedFile().getAbsolutePath(),
-                recapChooser.getSelectedFile().getAbsolutePath(),
-                dateTextArea.getText());
+            runJCABuilder();
          }
          catch (Exception ex) {
             output("Please select the JCA folder and Recap file first.");
@@ -117,6 +117,23 @@ public class JCAGui extends JFrame implements ActionListener {
       }
       else if (source.compareTo("Choose JCA Folder") == 0) {
          openJcaChooser();
+      }
+   }
+   
+   private void runJCABuilder() {
+      if (running == false) {
+         running = true;
+         
+         Thread jcaBuilderThread = new Thread(new Runnable() {
+            public void run() {
+               JCABuilder.buildJCA(jcaChooser.getSelectedFile().getAbsolutePath(),
+                   recapChooser.getSelectedFile().getAbsolutePath(),
+                   dateTextArea.getText());
+            }
+         
+         });
+         
+         jcaBuilderThread.start();
       }
    }
    

@@ -15,7 +15,6 @@ public class JCABuilder {
       gui = new JCAGui();
    }
    
-   
    public static void buildJCA(String jcaFolder, String recapFile, String week) {
       ArrayList<JCA> jcas;
       ArrayList<Job> allJobs;
@@ -36,8 +35,11 @@ public class JCABuilder {
                jca.prepareJCA();
                jca.fillJCA();
                jca.writeJCA();
-               //jca.close();
                failedJobs.addAll(jca.getFailedJobs());
+            }
+            catch (JCANotFoundException ex) {
+               gui.output(ex.toString());
+               failedJobs.addAll(jca.getJobs());
             }
             catch (Exception ex) {
                gui.output("Could not write to " + jca + ". Adding those jobs to failed jobs list.");
@@ -66,5 +68,9 @@ public class JCABuilder {
          System.out.println("Caught a Recap Format Exception.");
          gui.output("Recap is incorrectly formatted. Please check the recap and try again.");
       }
+   }
+   
+   public static void output(String msg) {
+      gui.output(msg);
    }
 }

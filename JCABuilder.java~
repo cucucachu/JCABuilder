@@ -35,7 +35,6 @@ public class JCABuilder {
                jca.prepareJCA();
                jca.fillJCA();
                jca.writeJCA();
-               //jca.close();
                failedJobs.addAll(jca.getFailedJobs());
             }
             catch (Exception ex) {
@@ -65,5 +64,9 @@ public class JCABuilder {
          System.out.println("Caught a Recap Format Exception.");
          gui.output("Recap is incorrectly formatted. Please check the recap and try again.");
       }
+   }
+   
+   public static void output(String msg) {
+      gui.output(msg);
    }
 }

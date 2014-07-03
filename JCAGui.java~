@@ -107,8 +107,6 @@ public class JCAGui extends JFrame implements ActionListener {
             JCABuilder.buildJCA(jcaChooser.getSelectedFile().getAbsolutePath(),
                 recapChooser.getSelectedFile().getAbsolutePath(),
                 dateTextArea.getText());
-            //output(jcaChooser.getSelectedFile().getAbsolutePath());
-            //output(recapChooser.getSelectedFile().getAbsolutePath());
          }
          catch (Exception ex) {
             output("Please select the JCA folder and Recap file first.");

@@ -23,14 +23,9 @@ public class JobSorter {
          }
          if (sorted == false) {
             System.out.println("JCA not found, creating it");
-            try {
-               JCA newJCA = new JCA(job.jobNoStr, jcaFolder, week);
-               newJCA.addJob(job);
-               jcas.add(newJCA);
-            }
-            catch (JCANotFoundException ex) {
-               System.out.println(ex.getMessage());
-            }
+            JCA newJCA = new JCA(job.jobNoStr, jcaFolder, week);
+            newJCA.addJob(job);
+            jcas.add(newJCA);
          }
       }
       
