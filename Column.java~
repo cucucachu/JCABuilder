@@ -1,0 +1,29 @@
+import jxl.*;
+import jxl.write.*;
+import java.io.File;
+import java.io.IOException;
+import jxl.read.biff.BiffException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.awt.Point;
+
+public class Column {
+   public static final String lastRowTerminator = "Actual Budget Remaining";
+
+
+   public static void copyEndColumn(WritableSheet sheet) throws WriteException {
+      WritableCell copy;
+      int newCol;
+      int endRow;
+      
+      newCol = sheet.getColumns();
+      endRow = sheet.findCell(lastRowTerminator).getRow();
+      
+      for (int curRow = 0; curRow < endRow + 1; curRow++) {
+         copy = sheet.getWritableCell(newCol - 1, curRow);
+         sheet.addCell(copy.copyTo(newCol, curRow));
+      }
+      
+   }
+
+}

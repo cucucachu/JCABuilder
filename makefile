@@ -1,0 +1,45 @@
+JCC = javac
+
+#JFLAGS = -classpath ./jexcelapi/jxl.jar
+
+default: Job.class Recap.class Driver.class RecapFormatException.class JCA.class\
+   JCAColumn.class JCAException.class JobSorter.class JCABuilder.class JCAGui.class\
+   JCANotFoundException.class
+   
+Job.class: Job.java
+	$(JCC) $(JFLAGS) Job.java
+
+Recap.class: Recap.java
+	$(JCC) $(JFLAGS) Recap.java
+	
+RecapFormatException.class: RecapFormatException.java
+	$(JCC) $(JFLAGS) RecapFormatException.java
+
+JCA.class: JCA.java	
+	$(JCC) $(JFLAGS) JCA.java
+	
+JCAException.class: JCAException.java
+	$(JCC) $(JFLAGS) JCAException.java
+	
+JCANotFoundException.class: JCANotFoundException.java
+	$(JCC) $(JFLAGS) JCANotFoundException.java
+	
+JCABuilder.class: JCABuilder.java	
+	$(JCC) $(JFLAGS) JCABuilder.java
+	
+JCAColumn.class: JCAColumn.java	
+	$(JCC) $(JFLAGS) JCAColumn.java
+	
+JCAGui.class: JCAGui.java	
+	$(JCC) $(JFLAGS) JCAGui.java
+	
+JobSorter.class: JobSorter.java	
+	$(JCC) $(JFLAGS) JobSorter.java
+	
+Driver.class: Driver.java
+	$(JCC) $(JFLAGS) Driver.java
+
+clean: 
+	$(RM) Job.class Recap.class Driver.class RecapFormatException.class JCA.class\
+	   JCAColumn.class JCAException.class JobSorter.class JCABuilder.class JCAGui.class\
+	   JCANotFoundException.class

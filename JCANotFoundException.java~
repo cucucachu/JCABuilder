@@ -1,0 +1,12 @@
+public class JCANotFoundException extends Exception {
+   private String jobNoStr;
+   
+   public JCANotFoundException(String msg, String jobNoStr) {
+      super(msg);
+      this.jobNoStr = jobNoStr;
+   }
+   
+   public String getJobNo() {
+      return jobNoStr;
+   }
+}
